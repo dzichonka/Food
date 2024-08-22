@@ -234,6 +234,65 @@ window.addEventListener("DOMContentLoaded", () => {
         postData(item);
     });
 
+    function postData(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let statusMassage = document.createElement('img');
+            statusMassage.src = message.loading;
+            statusMassage.style.cssText = `
+                display: block;
+                margin: 20px auto;
+            `;
+            form.insertAdjacentElement('afterend', statusMassage);
+
+
+            //const request = new XMLHttpRequest();
+            const formData = new FormData(form);
+
+            const object = {};
+
+            formData.forEach(function (value, key) {
+                object[key] = value;
+            });
+
+            fetch('server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(object)
+            }).then(data => {
+                console.log(data);
+                showThanksModal(message.success);
+                statusMassage.remove();
+            }).catch(() => {
+                showThanksModal(message.fail);
+            }).finally(() => {
+                form.reset();
+            });
+
+            // const json = JSON.stringify(object);
+
+            // request.open('POST', 'server.php');
+            // request.setRequestHeader('Content-type', 'application/json');
+            // //request.send(formData);
+            // request.send(json);
+
+            // request.addEventListener('load', () => {
+            //     if (request.status === 200) {
+            //         console.log(request.response);
+            //         showThanksModal(message.success);
+            //         form.reset();
+            //         statusMassage.remove();
+            //     } else {
+            //         showThanksModal(message.fail);
+            //         form.reset();
+            //         statusMassage.remove();
+            //     }
+            // });
+        });
+    }
     function showThanksModal(message) {
         const mainModalDialog = document.querySelector('.modal__dialog');
 
@@ -258,50 +317,9 @@ window.addEventListener("DOMContentLoaded", () => {
         }, 4000);
     }
 
-    function postData(form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const statusMassage = document.createElement('img');
-            statusMassage.src = message.loading;
-            statusMassage.style.cssText = `
-                display: block;
-                margin: 20px auto;
-            `;
-            form.insertAdjacentElement('afterend', statusMassage);
-
-
-            const request = new XMLHttpRequest();
-            const formData = new FormData(form);
-
-            const object = {};
-
-            formData.forEach(function (value, key) {
-                object[key] = value;
-            });
-
-            const json = JSON.stringify(object);
-
-            request.open('POST', 'server.php');
-            request.setRequestHeader('Content-type', 'application/json');
-            //request.send(formData);
-            request.send(json);
-
-            request.addEventListener('load', () => {
-                if (request.status === 200) {
-                    console.log(request.response);
-                    showThanksModal(message.success);
-                    form.reset();
-                    statusMassage.remove();
-                } else {
-                    showThanksModal(message.fail);
-                    form.reset();
-                    statusMassage.remove();
-                }
-            });
-        });
-    }
-
+    fetch('bd.json')
+        .then(data => data.json())
+        .then(res => console.log);
 
 });
 
