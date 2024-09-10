@@ -220,7 +220,7 @@ window.addEventListener("DOMContentLoaded", () => {
         "menu__item"
     ).render();
 
-        // Forms Fetch
+    // Forms Fetch
 
     const forms = document.querySelectorAll('form');
     const message = {
@@ -245,11 +245,11 @@ window.addEventListener("DOMContentLoaded", () => {
                 margin: 0 auto;
             `;
             form.insertAdjacentElement('afterend', statusMessage);
-        
+
             const formData = new FormData(form);
 
             const object = {};
-            formData.forEach(function(value, key){
+            formData.forEach(function (value, key) {
                 object[key] = value;
             });
 
@@ -293,6 +293,10 @@ window.addEventListener("DOMContentLoaded", () => {
             closeModal();
         }, 4000);
     }
+    fetch('http://localhost:3000/menu')
+        .then(data => data.json())
+        .then(res => console.log(res));
+
 
     // form XMLHttpRequest
 
