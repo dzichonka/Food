@@ -153,7 +153,8 @@ window.addEventListener("DOMContentLoaded", () => {
     //const modalTimerId = setTimeout(openModal, 50000);
     function showModalByScroll() {
         if (window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 1) {
-            openModal();
+            //openModal();
+            modalTimerId = setTimeout(openModal, 5000);
             window.removeEventListener('scroll', showModalByScroll);
         }
     }
