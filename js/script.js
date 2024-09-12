@@ -43,7 +43,20 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // timer
 
-    const deadline = "2024-01-01";
+    //const deadline = "2025-01-01";
+
+    // добавить фэйковое время
+    function getDeadline() {
+        const now = new Date();
+        const deadlineTime = new Date(now.getTime() + 72 * 60 * 1000 * 60);
+        const year = deadlineTime.getFullYear();
+        const month = String(deadlineTime.getMonth() + 1).padStart(2, '0');
+        const day = String(deadlineTime.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const deadline = getDeadline();
+    //console.log(getDeadline());
 
     function getTimeRemining(endtime) {
         let days, hours, minutes, seconds;
@@ -56,9 +69,9 @@ window.addEventListener("DOMContentLoaded", () => {
             seconds = 0;
         } else {
             days = Math.floor(t / (1000 * 60 * 60 * 24));
-            hours = Math.floor(t / (1000 * 60 * 60) % 24);
-            minutes = Math.floor(t / (1000 * 60) % 60);
-            seconds = Math.floor(t / 1000 % 60);
+            hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+            minutes = Math.floor((t / (1000 * 60)) % 60);
+            seconds = Math.floor((t / 1000) % 60);
         }
         return {
             'total': t,
@@ -85,14 +98,14 @@ window.addEventListener("DOMContentLoaded", () => {
             seconds = timer.querySelector('#seconds'),
             timeInterval = setInterval(updateClock, 1000);
 
-        updateClock();
+        updateClock(); // Сразу обновляем таймер при запуске
 
         function updateClock() {
             const t = getTimeRemining(endtime);
 
             days.innerHTML = getZerro(t.days);
-            minutes.textContent = getZerro(t.minutes);
             hours.innerHTML = getZerro(t.hours);
+            minutes.innerHTML = getZerro(t.minutes);
             seconds.innerHTML = getZerro(t.seconds);
 
             if (t.total <= 0) {
@@ -209,7 +222,7 @@ window.addEventListener("DOMContentLoaded", () => {
             //     elem.descr,
             //     elem.price,
             //     ".menu .container",
-            //     "menu__item")
+            //     "menu__item").render();
 
 
             //деструктуризация
@@ -220,7 +233,7 @@ window.addEventListener("DOMContentLoaded", () => {
                     descr,
                     price,
                     ".menu .container",
-                    "menu__item")
+                    "menu__item").render();
             })
         })
 
