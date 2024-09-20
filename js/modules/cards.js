@@ -1,3 +1,5 @@
+import { getData } from "../services/services.js";
+
 function cards() {
   class MenuCard {
     constructor(src, alt, title, descr, price, parentSelector, ...classes) {
@@ -38,16 +40,6 @@ function cards() {
       this.parent.append(element);
     }
   }
-
-  const getData = async (url) => {
-    const result = await fetch(url);
-    if (!result.ok) {
-      throw new Error(`could not fetch ${url}, status: ${result.status}`);
-    }
-    return await result.json();
-  }
-
-
   //getData('http://localhost:3000/menu')
   getData('cards.json')
     .then(data => {
@@ -60,7 +52,6 @@ function cards() {
       //     elem.price,
       //     ".menu .container",
       //     "menu__item").render();
-
 
       //деструктуризация
       data.forEach(({ img, altimg, title, descr, price }) => {
@@ -129,4 +120,5 @@ function cards() {
   //     "menu__item"
   // ).render();
 }
-module.exports = cards;
+//module.exports = cards;
+export default cards;

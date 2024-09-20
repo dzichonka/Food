@@ -1,6 +1,9 @@
-function form() {
+import { openModal, closeModal } from "./modal.js";
+import { postData } from "../services/services.js";
 
-  const forms = document.querySelectorAll('form');
+function form(formSelector) {
+
+  const forms = document.querySelectorAll(formSelector);
   const message = {
     loading: 'img/form/spinner.svg',
     success: 'Спасибо! Скоро мы с вами свяжемся',
@@ -10,18 +13,6 @@ function form() {
   forms.forEach(item => {
     bindPostData(item);
   });
-
-  const postData = async (url, data) => {
-    // await браузер начнет дожидаться, когда код полностью исполниться, и тольк потом пойдет дальше (вплоть до 30 сек)
-    const result = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: data
-    });
-    return await result.json();
-  }
 
   function bindPostData(form) {
     form.addEventListener('submit', (e) => {
@@ -66,7 +57,7 @@ function form() {
     const prevModalDialog = document.querySelector('.modal__dialog');
 
     prevModalDialog.classList.add('hide');
-    openModal();
+    openModal('.modal');
 
     const thanksModal = document.createElement('div');
     thanksModal.classList.add('modal__dialog');
@@ -81,7 +72,7 @@ function form() {
       thanksModal.remove();
       prevModalDialog.classList.add('show');
       prevModalDialog.classList.remove('hide');
-      closeModal();
+      closeModal('.modal');
     }, 4000);
   }
   //fetch('http://localhost:3000/menu')
@@ -107,7 +98,7 @@ function form() {
   //     const mainModalDialog = document.querySelector('.modal__dialog');
 
   //     mainModalDialog.classList.add('hide');
-  //     openModal();
+  //     openModal('.modal');
 
   //     const thanksModalDialog = document.createElement('div');
   //     thanksModalDialog.classList.add('modal__dialog');
@@ -123,7 +114,7 @@ function form() {
   //         thanksModalDialog.remove();
   //         mainModalDialog.classList.remove('hide');
   //         mainModalDialog.classList.add('show');
-  //         closeModal();
+  //         closeModal('.modal');
   //     }, 4000);
   // }
 
@@ -171,4 +162,5 @@ function form() {
   //     });
   // }
 }
-module.exports = form;
+//module.exports = form;
+export default form;

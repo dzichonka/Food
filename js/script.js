@@ -1,18 +1,27 @@
 'use strict';
-window.addEventListener("DOMContentLoaded", () => {
-    const tabs = require('./modules/tabs');
-    const modal = require('./modules/modal');
-    const timer = require('./modules/timer');
-    const cards = require('./modules/cards');
-    const slider = require('./modules/slider');
-    const calculator = require('./modules/calculator');
-    const form = require('./modules/form');
+import tabs from './modules/tabs';
+import modal from './modules/modal';
+import timer from './modules/timer';
+import cards from './modules/cards';
+import slider from './modules/slider';
+import calculator from './modules/calculator';
+import form from './modules/form';
 
-    tabs();
-    modal();
-    timer();
+window.addEventListener("DOMContentLoaded", () => {
+    tabs(".tabheader__item", ".tabcontent", ".tabheader__items", "tabheader__item_active");
+    modal('[data-modal]', '.modal');
+    timer('.timer');
     cards();
-    slider();
+    slider({
+        container: '.offer__slider',
+        slide: '.offer__slide',
+        nextArrow: '.offer__slider-next',
+        prevArrow: '.offer__slider-prev',
+        totalCounter: '#total',
+        currentCounter: '#current',
+        wrapper: '.offer__slider-wrapper',
+        field: '.offer__slider-inner'
+    });
     calculator();
-    form();
+    form('form');
 });

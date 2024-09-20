@@ -1,4 +1,4 @@
-function timer() {
+function timer(id, deadline) {
   //const deadline = "2025-01-01";
 
   // добавить фэйковое время
@@ -10,8 +10,11 @@ function timer() {
     const day = String(deadlineTime.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
+  deadline = getDeadline();
 
-  const deadline = getDeadline();
+
+  //const deadline = getDeadline();
+
   //console.log(getDeadline());
 
   function getTimeRemining(endtime) {
@@ -70,6 +73,7 @@ function timer() {
     }
   }
 
-  setClock('.timer', deadline);
+  setClock(id, deadline);
 }
-module.exports = timer;
+//module.exports = timer;
+export default timer;
